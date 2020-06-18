@@ -1,0 +1,12 @@
+[android-ui-state](../../index.md) / [com.sophoun.ui.state](../index.md) / [BaseActivity](index.md) / [onBackPress](./on-back-press.md)
+
+# onBackPress
+
+`open fun onBackPress(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
+
+Use this for on backpress.
+
+Note:
+
+* Do not override the default onBackPressed() method
+because it leads to unexpected error

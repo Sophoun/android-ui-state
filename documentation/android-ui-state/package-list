@@ -1,0 +1,6 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+com.sophoun.ui.state
+com.sophoun.ui.state.service
+com.sophoun.ui.state.state
