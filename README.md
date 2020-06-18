@@ -1,4 +1,4 @@
-# Android Query
+# Android UI State
 
 # Documentation
-[Document references](documentation/android-query/index.md)
+[Document references](documentation/android-ui-state/index.md)
