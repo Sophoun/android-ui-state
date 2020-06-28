@@ -1,8 +1,7 @@
 package com.sophoun.app.view.activity
 
 import android.os.Bundle
-import com.project.app.R
-import com.project.app.R.id
+import com.sophoun.app.R
 import com.sophoun.app.view.fragment.FirstFragment
 import com.sophoun.app.view.fragment.RootHomeFragment
 import com.sophoun.app.view.fragment.SecondFragment
@@ -21,7 +20,7 @@ class MainActivity : AppBaseActivity() {
     private val secondFragment by lazy { fragmentFactory?.instantiate(classLoader, SecondFragment::class.java.name)!! }
     lateinit var fragmentTabNavigator: FragmentTabNavigator
 
-    val homeNav by lazy { FragmentStackNavigator(rootHomeFragment.childFragmentManager, id.root_home_container) }
+    val homeNav by lazy { FragmentStackNavigator(rootHomeFragment.childFragmentManager, R.id.root_home_container) }
 
     override fun layout(): Int = R.layout.activity_main
 

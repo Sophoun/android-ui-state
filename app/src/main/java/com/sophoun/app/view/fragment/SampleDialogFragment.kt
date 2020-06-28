@@ -1,6 +1,7 @@
 package com.sophoun.app.view.fragment
 
-import com.project.app.R
+import com.sophoun.app.R
+
 
 class SampleDialogFragment : AppBaseFragment() {
 
