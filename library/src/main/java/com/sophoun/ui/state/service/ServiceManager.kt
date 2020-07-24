@@ -21,12 +21,12 @@ import java.util.concurrent.atomic.AtomicReference
  *
  * It musts work with sub class of BaseService
  */
-open class ServiceManager(private val context: Context, private val onMessageReceive: (msg: Message) -> Unit) {
+open class ServiceManager(private val context: Context) {
     @SuppressLint("HandlerLeak")
     inner class IncomingHandler : Handler() {
         override fun handleMessage(msg: Message?) {
             msg?.let {
-                onMessageReceive.invoke(it)
+                _onMessageReceives.forEach { it.value.invoke(msg) }
             }
         }
     }
@@ -36,6 +36,7 @@ open class ServiceManager(private val context: Context, private val onMessageRec
     private var _serviceManagerMessenger: Messenger? = null
     private val _onServiceConnected = AtomicReference<() -> Unit>().apply { set {  } }
     private val _onServiceDisconnected = AtomicReference<() -> Unit>().apply { set {  } }
+    private val _onMessageReceives = hashMapOf<Int, (msg: Message) -> Unit>()
 
     private val _serviceConnection = object: ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -83,6 +84,7 @@ open class ServiceManager(private val context: Context, private val onMessageRec
      * @param clazz subclass of BaseService
      */
     fun <T: BaseService> stopService(clazz: Class<T>) {
+        _onMessageReceives.clear()
         context.stopService(Intent(context, clazz))
     }
 
@@ -137,5 +139,21 @@ open class ServiceManager(private val context: Context, private val onMessageRec
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    /**
+     * Add a message receive listener to service manager
+     * @param onMessageReceiveListener
+     */
+    fun addOnMessageReceiveListener(onMessageReceiveListener: (msg: Message) -> Unit) {
+        _onMessageReceives[onMessageReceiveListener.hashCode()] = onMessageReceiveListener
+    }
+
+    /**
+     * Remove a message receive listener to service manager
+     * @param onMessageReceiveListener
+     */
+    fun removeOnMessageReceiveListener(onMessageReceiveListener: (msg: Message) -> Unit) {
+        _onMessageReceives.remove(onMessageReceiveListener.hashCode())
     }
 }
