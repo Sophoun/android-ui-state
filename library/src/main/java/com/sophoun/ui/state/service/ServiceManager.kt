@@ -5,11 +5,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.os.Message
 import android.os.Messenger
+import com.sophoun.utils.SdkUtils
 import java.lang.Exception
 import java.util.concurrent.atomic.AtomicReference
 
@@ -77,6 +79,22 @@ open class ServiceManager(private val context: Context) {
      */
     fun <T: BaseService> startService(clazz: Class<T>) {
         context.startService(Intent(context, clazz))
+    }
+
+    /**
+     * Start a service.
+     *
+     * Note:
+     * - must call startService before call bindService
+     * @param clazz subclass of BaseService
+     */
+    @SuppressLint("NewApi")
+    fun <T: BaseService> startForegroundService(clazz: Class<T>) {
+        SdkUtils.targetSdk(Build.VERSION_CODES.O, {
+            context.startForegroundService(Intent(context, clazz))
+        }, {
+            startService(clazz)
+        })
     }
 
     /**
