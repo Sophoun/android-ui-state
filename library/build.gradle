@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 apply from: "$rootDir/scripts/configs.gradle"
-apply from: "$rootDir/scripts/bintray_publish.gradle"
+apply from: "$rootDir/scripts/jfrog_publish.gradle"
 
 android {
     compileSdkVersion                   configs.compile_sdk
