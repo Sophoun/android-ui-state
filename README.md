@@ -1,3 +1,7 @@
+Deprecated!!!
+
+Use [PAUL instead](https://github.com/Sophoun/paul)
+
 # Android UI State
 
 We create this library to easy update `Activity` or `Fragment` ui state.
